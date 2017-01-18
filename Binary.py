@@ -1,17 +1,25 @@
-import datetime
-import random
-def bubble_sort(ar):
-    n = 0
-    while n < len(ar):
-        for i in range(len(ar)-1):
-            if ar[i] > ar[i+1]:
-                ar[i],ar[i+1] = ar[i+1],ar[i]
-        n += 1
-    return ar
-N = 200
-a = list(map(lambda n: random.randint(1,N+0*n),range(N)))
-t1 = datetime.datetime.now()
-b=bubble_sort(a)
-t2 = datetime.datetime.now()
-print(((t2-t1).microseconds))
-print(b)
+from merge_sort import *
+def search(ar,n):
+    if len(ar) in [0,1]:
+        if ar == []:
+            print('error')
+            return -1
+        if ar[0] != n:
+            print('error')
+            return -1
+    if n == ar[len(ar)//2]:
+        return len(ar)//2
+
+    if n > ar[len(ar)//2]:
+        beer = search(ar[len(ar)//2+1:],n)
+        if beer == -1:
+            return -1
+        return len(ar)//2+1+ beer
+    if n < ar[len(ar)//2]:
+        return search(ar[:len(ar)//2],n)
+while True:
+    raw_a =list( map(int,input().split()))
+    a = merge_sort(raw_a)
+    print(a)
+    n = int(input())
+    print(search(a,n))  
